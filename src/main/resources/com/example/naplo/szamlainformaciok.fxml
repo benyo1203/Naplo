@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.TableView?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.naplo.SzamlainformaciokController">
+    <TableView fx:id="accountSummaryTable">
+        <columns>
+            <TableColumn fx:id="idColumn" text="ID" />
+            <TableColumn fx:id="aliasColumn" text="Alias" />
+            <TableColumn fx:id="currencyColumn" text="Currency" />
+            <TableColumn fx:id="balanceColumn" text="Balance" />
+            <TableColumn fx:id="plColumn" text="P/L" />
+            <TableColumn fx:id="marginUsedColumn" text="Margin Used" />
+            <TableColumn fx:id="marginAvailableColumn" text="Margin Available" />
+            <TableColumn fx:id="withdrawalLimitColumn" text="Withdrawal Limit" />
+        </columns>
+    </TableView>
+    <Button text="Get Account Summary" onAction="#onHelloButtonClick" />
+</VBox>
+
