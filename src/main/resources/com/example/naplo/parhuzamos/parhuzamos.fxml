@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.naplo.parhuzamos.ParhuzamosController" spacing="10" alignment="center">
+    <Button text="Kattints ide!" onAction="#handleButtonAction"/>
+    <Label fx:id="label1" text="Label 1" />
+    <Label fx:id="label2" text="Label 2" />
+</VBox>
