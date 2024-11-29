@@ -1,11 +1,11 @@
 module com.example.naplo {
     requires javafx.controls;
     requires javafx.fxml;
-    requires java.sql;
-    requires java.desktop;
     requires gson;
     requires httpclient;
     requires httpcore;
+    requires com.fasterxml.jackson.databind;
+    requires java.sql;
 
     //Ezek a  forexhez kellenek
     opens com.oanda.v20;
@@ -21,4 +21,6 @@ module com.example.naplo {
 
     opens com.example.naplo to javafx.fxml;
     exports com.example.naplo;
+    exports com.example.naplo.forex;
+    opens com.example.naplo.forex to javafx.fxml;
 }
