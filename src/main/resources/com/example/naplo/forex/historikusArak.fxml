@@ -1,0 +1,36 @@
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.naplo.forex.HistorikusArakControler" spacing="10" alignment="CENTER" prefWidth="800">
+    <HBox spacing="10" alignment="CENTER">
+        <ComboBox fx:id="currencyPairComboBox" promptText="Válassz devizapárt" prefWidth="150" />
+        <DatePicker fx:id="startDatePicker" promptText="Kezdő dátum" />
+        <DatePicker fx:id="endDatePicker" promptText="Záró dátum" />
+        <Button text="Adatok lekérése" onAction="#onHelloButtonClick" />
+    </HBox>
+
+    <LineChart fx:id="priceChart" title="Árváltozás" prefHeight="500" prefWidth="700">
+        <xAxis>
+            <CategoryAxis label="Dátum" />
+        </xAxis>
+        <yAxis>
+            <NumberAxis label="Záró ár" />
+        </yAxis>
+    </LineChart>
+
+    <!-- Táblázat az adatok megjelenítéséhez -->
+    <TableView fx:id="tableView" prefWidth="700" prefHeight="300">
+        <columns>
+            <TableColumn fx:id="dateColumn" text="Dátum" />
+            <TableColumn fx:id="priceColumn" text="Záró ár" />
+        </columns>
+    </TableView>
+</VBox>

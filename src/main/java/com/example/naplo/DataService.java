@@ -1,5 +1,7 @@
 package com.example.naplo;
 
+import com.example.naplo.forex.AdatbazisBetoltes;
+
 import java.util.List;
 
 public class DataService {

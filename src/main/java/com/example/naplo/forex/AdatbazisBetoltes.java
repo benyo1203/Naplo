@@ -1,5 +1,9 @@
-package com.example.naplo;
+package com.example.naplo.forex;
 
+
+import com.example.naplo.Diak;
+import com.example.naplo.Jegy;
+import com.example.naplo.Targy;
 
 import java.sql.*;
 import java.util.ArrayList;

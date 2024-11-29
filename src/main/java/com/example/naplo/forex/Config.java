@@ -1,4 +1,4 @@
-package com.example.naplo;
+package com.example.naplo.forex;
 
 import com.oanda.v20.account.AccountID;
 

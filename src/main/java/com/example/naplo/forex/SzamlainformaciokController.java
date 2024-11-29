@@ -1,4 +1,4 @@
-package com.example.naplo;
+package com.example.naplo.forex;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
