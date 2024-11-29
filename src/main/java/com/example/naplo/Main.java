@@ -33,6 +33,7 @@ public class Main extends Application {
         MenuItem pozicioNyitas = new MenuItem("Pozíció Nyitás");
         MenuItem pozicioZaras = new MenuItem("Pozíció Zárás");
         MenuItem nyitottPoziciok = new MenuItem("Nyitott Pozíciók");
+        MenuItem parhuzamos = new MenuItem("Párhuzamos");
 
         forexMenu.getItems().add(szamlainfo);
         forexMenu.getItems().add(aktualisArak);
@@ -40,6 +41,7 @@ public class Main extends Application {
         forexMenu.getItems().add(pozicioNyitas);
         forexMenu.getItems().add(pozicioZaras);
         forexMenu.getItems().add(nyitottPoziciok);
+        forexMenu.getItems().add(parhuzamos);
 
         // Menü hozzáadása a menüsorhoz
         menuBar.getMenus().add(dbMenu);
@@ -123,6 +125,19 @@ public class Main extends Application {
                 e.printStackTrace();
             }
             root.setCenter(nyitottPozView); // Az új UI betöltése a középső részhez
+        });
+
+        parhuzamos.setOnAction(event -> {
+            VBox parhuzamosView = null;
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/naplo/parhuzamos" +
+                        "/parhuzamos" +
+                        ".fxml"));
+                parhuzamosView = loader.load(); // Betöltjük az aktuális árak FXML fájlt
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            root.setCenter(parhuzamosView); // Az új UI betöltése a középső részhez
         });
     }
 

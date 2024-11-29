@@ -22,5 +22,7 @@ module com.example.naplo {
     opens com.example.naplo to javafx.fxml;
     exports com.example.naplo;
     exports com.example.naplo.forex;
+    exports com.example.naplo.parhuzamos;
     opens com.example.naplo.forex to javafx.fxml;
+    opens com.example.naplo.parhuzamos to javafx.fxml;
 }
