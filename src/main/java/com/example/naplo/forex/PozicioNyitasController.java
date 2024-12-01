@@ -26,61 +26,91 @@ public class PozicioNyitasController {
 
     @FXML
     protected void initialize() {
-        // Devizapárok feltöltése
-        currencyPairComboBox.getItems().addAll("AUD_USD", "EUR_USD", "GBP_USD", "USD_JPY");
+        try {
+            // Devizapárok feltöltése
+            currencyPairComboBox.getItems().addAll("EUR_GBP", "EUR_USD", "GBP_USD", "USD_JPY");
 
-        // Lehetséges mennyiségek (pl. 1-100)
-        for (int i = 1; i <= 100; i++) {
-            amountComboBox.getItems().add(i);
+            // Lehetséges mennyiségek (pl. 1-100)
+            for (int i = 1; i <= 100; i++) {
+                amountComboBox.getItems().add(i);
+            }
+
+            // Irányok (vétel/eladás)
+            directionComboBox.getItems().addAll("Buy", "Sell");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            welcomeText.setText("Initialization error: " + e.getMessage());
         }
-
-        // Irányok (vétel/eladás)
-        directionComboBox.getItems().addAll("Buy", "Sell");
     }
+
 
     @FXML
     protected void onHelloButtonClick() {
         try {
+            String currencyPair = currencyPairComboBox.getValue();
+            Integer amount = amountComboBox.getValue();
+            String direction = directionComboBox.getValue();
+
+            if (currencyPair == null || amount == null || direction == null) {
+                welcomeText.setText("Please select all values.");
+                return;
+            }
+
             ctx = new ContextBuilder(Config.URL)
                     .setToken(Config.TOKEN)
                     .setApplication("StepByStepOrder")
                     .build();
             accountId = Config.ACCOUNTID;
 
-            String currencyPair = currencyPairComboBox.getValue();
-            Integer amount = amountComboBox.getValue();
-            String direction = directionComboBox.getValue();
-
-            if (currencyPair != null && amount != null && direction != null) {
-                Nyitás(currencyPair, amount, direction);
-                welcomeText.setText(welcomeText.getText() + "\n" + "Done");
-            } else {
-                welcomeText.setText("Please select all values.");
-            }
+            Nyitás(currencyPair, amount, direction);
+            welcomeText.setText(welcomeText.getText() + "\n" + "Position opened successfully.");
         } catch (Exception e) {
             e.printStackTrace();
+            welcomeText.setText("Error opening position: " + e.getMessage());
         }
     }
 
-    void Nyitás(String currencyPair, int amount, String direction) {
-        welcomeText.setText(welcomeText.getText() + "\n" + "Place a Market Order");
 
-        InstrumentName instrument = new InstrumentName(currencyPair);
+    void Nyitás(String currencyPair, int amount, String direction) {
         try {
+            welcomeText.setText(welcomeText.getText() + "\n" + "Placing Market Order...");
+
+            InstrumentName instrument = new InstrumentName(currencyPair);
             OrderCreateRequest request = new OrderCreateRequest(accountId);
             MarketOrderRequest marketOrderRequest = new MarketOrderRequest();
+
             marketOrderRequest.setInstrument(instrument);
 
-            // Ha "Buy" a választás, akkor pozitív, ha "Sell", akkor negatív
-            int units = direction.equals("Buy") ? amount : -amount;
+            // Units beállítása a Buy/Sell alapján
+            int units = direction.equalsIgnoreCase("Buy") ? amount : -amount;
             marketOrderRequest.setUnits(units);
 
             request.setOrder(marketOrderRequest);
 
             OrderCreateResponse response = ctx.order.create(request);
-            welcomeText.setText(welcomeText.getText() + "\n" + "tradeId: " + response.getOrderFillTransaction().getId());
+
+            // Részletes válasz kiírása
+            if (response.getOrderFillTransaction() != null) {
+                welcomeText.setText(welcomeText.getText() + "\n" +
+                        "Trade ID: " + response.getOrderFillTransaction().getId());
+            } else if (response.getOrderCancelTransaction() != null) {
+                welcomeText.setText(welcomeText.getText() + "\n" +
+                        "Order was cancelled. Reason: " + response.getOrderCancelTransaction().getReason());
+            } else {
+                // Részletes hibaüzenet kiírása
+                welcomeText.setText(welcomeText.getText() + "\n" +
+                        "Order failed. Full response: " + response.toString());
+                System.out.println("Response details: " + response);
+            }
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            welcomeText.setText("Order failed: " + e.getMessage());
+            e.printStackTrace();
         }
     }
+
+
+
+
+
 }

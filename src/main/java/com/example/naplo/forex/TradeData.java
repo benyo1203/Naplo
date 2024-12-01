@@ -6,44 +6,48 @@ import com.oanda.v20.primitives.DecimalNumber;
 import com.oanda.v20.primitives.InstrumentName;
 import com.oanda.v20.trade.TradeID;
 
-public class TradeData {
-    private TradeID id;
-    private InstrumentName instrument;
-    private String openTime;
-    private DecimalNumber units;
-    private PriceValue price;
-    private AccountUnits unrealizedPL;
+    public class TradeData {
+        private String id;
+        private String instrument;
+        private String openTime;
+        private int units;
+        private double price;
+        private double unrealizedPL;
 
-    public TradeData(TradeID id, InstrumentName instrument, String openTime, DecimalNumber units, PriceValue price, AccountUnits unrealizedPL) {
-        this.id = id;
-        this.instrument = instrument;
-        this.openTime = openTime;
-        this.units = units;
-        this.price = price;
-        this.unrealizedPL = unrealizedPL;
+        public TradeData(TradeID id, InstrumentName instrument, String openTime, DecimalNumber units, PriceValue price,
+                         AccountUnits unrealizedPL) {
+            this.id = id.toString();
+            this.instrument = instrument.toString();
+            this.openTime = openTime;
+            this.units = Integer.parseInt(units.toString()); // Konvertálás egész számmá
+            this.price = Double.parseDouble(price.toString()); // Konvertálás lebegőpontos számmá
+            this.unrealizedPL = Double.parseDouble(unrealizedPL.toString()); // Konvertálás lebegőpontos számmá
+        }
+
+        // Getterek
+        public String getId() {
+            return id;
+        }
+
+        public String getInstrument() {
+            return instrument;
+        }
+
+        public String getOpenTime() {
+            return openTime;
+        }
+
+        public int getUnits() {
+            return units;
+        }
+
+        public double getPrice() {
+            return price;
+        }
+
+        public double getUnrealizedPL() {
+            return unrealizedPL;
+        }
     }
 
-    public TradeID getId() {
-        return id;
-    }
 
-    public InstrumentName getInstrument() {
-        return instrument;
-    }
-
-    public String getOpenTime() {
-        return openTime;
-    }
-
-    public DecimalNumber getUnits() {
-        return units;
-    }
-
-    public PriceValue getPrice() {
-        return price;
-    }
-
-    public AccountUnits getUnrealizedPL() {
-        return unrealizedPL;
-    }
-}

@@ -28,30 +28,39 @@ public class PozicioZarasController {
                     .build();
             accountId = Config.ACCOUNTID;
 
-            // A TextField-ből lekérjük a pozíció ID-t
             String tradeId = tradeIdInput.getText();
 
             if (tradeId != null && !tradeId.isEmpty()) {
-                Zárás(tradeId);  // A megadott pozíció ID-val hívjuk meg a Zárás metódust
-                welcomeText.setText(welcomeText.getText() + "\n" + "Done");
+                Zárás(tradeId);
             } else {
-                welcomeText.setText(welcomeText.getText() + "\n" + "Pozíció ID nem lett megadva.");
+                welcomeText.setText(welcomeText.getText() + "\nKérjük, add meg a pozíció ID-t!");
             }
         } catch (Exception e) {
+            welcomeText.setText(welcomeText.getText() + "\nÁltalános hiba: " + e.getMessage());
             e.printStackTrace();
-            welcomeText.setText(welcomeText.getText() + "\n" + "Hiba történt.");
         }
     }
 
+
     void Zárás(String tradeId) {
-        welcomeText.setText(welcomeText.getText() + "\n" + "Zárás: " + tradeId);
+        welcomeText.setText(welcomeText.getText() + "\n" + "Pozíció zárása folyamatban: " + tradeId);
         try {
-            // A pozíció ID-t átadjuk a TradeCloseRequest konstruktorának
-            ctx.trade.close(new TradeCloseRequest(accountId, new TradeSpecifier(tradeId)));
-            welcomeText.setText(welcomeText.getText() + "\n" + "Pozíció sikeresen lezárva. tradeId: " + tradeId);
+            // Trade zárás kérése
+            TradeCloseRequest closeRequest = new TradeCloseRequest(accountId, new TradeSpecifier(tradeId));
+            var response = ctx.trade.close(closeRequest);
+
+            // Ellenőrzés, hogy a zárás sikeres volt-e
+            if (response.getOrderFillTransaction() != null) {
+                welcomeText.setText(welcomeText.getText() + "\nPozíció sikeresen lezárva. tradeId: " + tradeId);
+            } else if (response.getOrderCancelTransaction() != null) {
+                welcomeText.setText(welcomeText.getText() + "\nPozíció zárása meghiúsult. Ok: " + response.getOrderCancelTransaction().getReason());
+            } else {
+                welcomeText.setText(welcomeText.getText() + "\nPozíció zárása sikertelen. Részletek: " + response.toString());
+            }
         } catch (Exception e) {
-            welcomeText.setText(welcomeText.getText() + "\n" + "Hiba a pozíció zárása közben.");
-            throw new RuntimeException(e);
+            welcomeText.setText(welcomeText.getText() + "\nHiba a pozíció zárása közben: " + e.getMessage());
+            e.printStackTrace();
         }
     }
+
 }
