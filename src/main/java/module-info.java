@@ -12,7 +12,7 @@ module com.example.naplo {
     requires java.xml.bind;
 
 
-    opens com.example.naplo.SOAP.mnb to javax.activation;
+    opens mnb to javax.activation;
 
 
     exports com.example.naplo;
