@@ -1,5 +1,7 @@
 package com.example.naplo;
 
+//import com.example.naplo.SOAP.mnb.MNBArfolyamServiceSoap;
+//import com.example.naplo.hu.mnb.client.MNBArfolyamServiceSoapImpl;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -139,10 +141,19 @@ public class Main extends Application {
             }
             root.setCenter(parhuzamosView); // Az új UI betöltése a középső részhez
         });
+        // SOAP Kliens Menü
+        Menu soapMenu = new Menu("SOAP Kliens");
+        MenuItem letoltes = new MenuItem("Letöltés");
+        soapMenu.getItems().add(letoltes);
+
+
     }
 
 
     public static void main(String[] args) {
         launch(args);
+
+
+
     }
 }
