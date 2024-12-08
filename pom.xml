@@ -98,7 +98,7 @@
                         <wsdlUrl>https://www.mnb.hu/arfolyamok.asmx?wsdl</wsdlUrl>
                     </wsdlUrls>
                     <packageName>mnb</packageName>
-                    <sourceDestDir>${project.basedir}/src/main/java/com/example/naplo/SOAP</sourceDestDir>
+                    <sourceDestDir>${project.basedir}/src/main/java</sourceDestDir>
                 </configuration>
             </plugin>
 
