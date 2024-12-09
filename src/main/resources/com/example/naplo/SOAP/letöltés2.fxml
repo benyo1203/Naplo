@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="10" alignment="CENTER" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.naplo.SOAP.letoltes.Letöltés2Controller">
+    <Label text="Válaszd ki a letöltési paramétereket" />
+    <HBox spacing="10">
+        <Label text="Kezdődátum:" />
+        <DatePicker fx:id="startDatePicker" />
+    </HBox>
+    <HBox spacing="10">
+        <Label text="Záródátum:" />
+        <DatePicker fx:id="endDatePicker" />
+    </HBox>
+    <HBox spacing="10">
+        <Label text="Valuták:" />
+        <TextField fx:id="currenciesField" promptText="Pl.: EUR, USD, HUF" />
+    </HBox>
+    <Button text="Letöltés" fx:id="downloadButton" />
+</VBox>

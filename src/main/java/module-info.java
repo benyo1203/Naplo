@@ -7,33 +7,41 @@ module com.example.naplo {
     requires java.sql;
     requires org.apache.httpcomponents.httpcore;
     requires org.apache.httpcomponents.httpclient;
-    requires javax.jws;
-    requires java.xml.ws;
-    requires java.xml.bind;
+    requires jakarta.activation;
+    requires jakarta.xml.ws;
+    requires jakarta.xml.bind;
+    requires com.sun.xml.bind;
+    requires java.desktop;
+    requires java.net.http;
+    requires org.json;
 
-
-    opens mnb to javax.activation;
-
+    opens mnb to com.sun.xml.bind;
 
     exports com.example.naplo;
 
-    // Forexhez kellenek
-    opens com.oanda.v20;
-    opens com.oanda.v20.account;
-    opens com.oanda.v20.pricing;
-    opens com.oanda.v20.pricing_common;
-    opens com.oanda.v20.order;
-    opens com.oanda.v20.instrument;
-    opens com.oanda.v20.transaction;
-    opens com.oanda.v20.trade;
+    // Forexhez szükséges nyitások
+    opens com.oanda.v20 to jakarta.xml.bind, com.google.gson;
+    opens com.oanda.v20.account to jakarta.xml.bind, com.google.gson;
+    opens com.oanda.v20.pricing to jakarta.xml.bind, com.google.gson;
+    opens com.oanda.v20.pricing_common to jakarta.xml.bind, com.google.gson;
+    opens com.oanda.v20.order to jakarta.xml.bind, com.google.gson;
+    opens com.oanda.v20.instrument to jakarta.xml.bind;
+    opens com.oanda.v20.transaction to jakarta.xml.bind, com.google.gson;
+    opens com.oanda.v20.trade to jakarta.xml.bind, com.google.gson;
+
     exports com.oanda.v20.primitives;
     exports com.oanda.v20.transaction;
 
-
-  // Exportáljuk a SOAP csomagot
-
+    // Exportáljuk a SOAP csomagot
     exports com.example.naplo.forex;
     exports com.example.naplo.parhuzamos;
-    opens com.example.naplo.forex to javafx.fxml;
-    opens com.example.naplo.parhuzamos to javafx.fxml;
+
+    opens com.example.naplo.forex to javafx.fxml, jakarta.xml.bind;
+    opens com.example.naplo.parhuzamos to javafx.fxml, jakarta.xml.bind;
+
+    // Nyisd meg a com.example.naplo.SOAP.letoltes csomagot a javafx.fxml modul számára
+    opens com.example.naplo.SOAP.letoltes to javafx.fxml;
+
+    exports mnb;
+    exports com.example.naplo.SOAP.letoltes;
 }

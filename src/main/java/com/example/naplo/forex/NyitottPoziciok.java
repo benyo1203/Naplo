@@ -7,6 +7,7 @@ import com.oanda.v20.RequestException;
 import com.oanda.v20.account.AccountID;
 import com.oanda.v20.pricing_common.PriceValue;
 import com.oanda.v20.primitives.AccountUnits;
+import com.oanda.v20.primitives.DateTime;
 import com.oanda.v20.primitives.DecimalNumber;
 import com.oanda.v20.primitives.InstrumentName;
 import com.oanda.v20.trade.Trade;
@@ -19,7 +20,10 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.List;
 
 public class NyitottPoziciok {
@@ -55,15 +59,17 @@ public class NyitottPoziciok {
         try {
             ctx = new ContextBuilder(Config.URL).setToken(Config.TOKEN).setApplication("StepByStepOrder").build();
             accountId = Config.ACCOUNTID;
-            NyitotttradekKiír();
+            NyitottKiír();
             welcomeText.setText(welcomeText.getText() + "\n" +"Done");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    void NyitotttradekKiír() throws ExecuteException, RequestException {
-        welcomeText.setText(welcomeText.getText() + "\n" +"Nyitott tradek:");
+
+
+    void NyitottKiír() throws ExecuteException, RequestException {
+        welcomeText.setText(welcomeText.getText() + "\n" + "Nyitott tradek:");
         List<Trade> trades = ctx.trade.listOpen(accountId).getTrades();
 
         ObservableList<TradeData> tradeDataList = FXCollections.observableArrayList();
@@ -72,12 +78,17 @@ public class NyitottPoziciok {
         for (Trade trade : trades) {
             TradeID id = trade.getId();
             InstrumentName instrument = trade.getInstrument();
-            String openTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(trade.getOpenTime());
+
+            // A DateTime típus konvertálása LocalDateTime-ra
+            DateTime openTimeDateTime = trade.getOpenTime();
+            String openTimeString = openTimeDateTime.toString();
+            LocalDateTime openTime = LocalDateTime.parse(openTimeString, DateTimeFormatter.ISO_DATE_TIME);
+
             DecimalNumber units = trade.getCurrentUnits();
             PriceValue price = trade.getPrice();
             AccountUnits unrealizedPL = trade.getUnrealizedPL();
 
-            tradeDataList.add(new TradeData(id, instrument, openTime, units, price, unrealizedPL));
+            tradeDataList.add(new TradeData(id, instrument, openTime.toString(), units, price, unrealizedPL));
         }
 
         // Az adattáblát feltöltjük
@@ -91,4 +102,5 @@ public class NyitottPoziciok {
         priceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
         unrealizedPLColumn.setCellValueFactory(new PropertyValueFactory<>("unrealizedPL"));
     }
+
 }

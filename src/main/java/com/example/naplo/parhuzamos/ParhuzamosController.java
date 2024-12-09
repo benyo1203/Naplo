@@ -2,7 +2,7 @@ package com.example.naplo.parhuzamos;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.util.Duration;
+import javafx.application.Platform;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -31,7 +31,7 @@ public class ParhuzamosController {
             }
         }, 0, 1000);
 
-        // Időzítő 2 - 2 másodpercenként
+        // Időzítő 2 - 4 másodpercenként
         timer2 = new Timer();
         timer2.scheduleAtFixedRate(new TimerTask() {
             @Override
@@ -45,6 +45,6 @@ public class ParhuzamosController {
     // A Label frissítése JavaFX szálon
     private void updateLabel(Label label, String text) {
         // A JavaFX szálon futtatjuk a label frissítését
-        javafx.application.Platform.runLater(() -> label.setText(text));
+        Platform.runLater(() -> label.setText(text));
     }
 }
