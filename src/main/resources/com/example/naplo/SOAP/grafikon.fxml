@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.naplo.SOAP.letoltes.Grafikon">
+    <!-- Valuták kiválasztása -->
+    <TextField fx:id="valutaTextField1" layoutX="100" layoutY="100" />
+    <TextField fx:id="valutaTextField2" layoutX="100" layoutY="150" />
+
+    <Button fx:id="frissitesGomb" layoutX="100" layoutY="200" text="Frissítés" />
+    <!-- Grafikon megjelenítése -->
+    <LineChart fx:id="lineChart" xmlns="http://javafx.com/javafx/8.0.171" >
+        <xAxis>
+            <NumberAxis fx:id="xAxis" />
+        </xAxis>
+        <yAxis>
+            <NumberAxis fx:id="yAxis" />
+        </yAxis>
+    </LineChart>
+</VBox>

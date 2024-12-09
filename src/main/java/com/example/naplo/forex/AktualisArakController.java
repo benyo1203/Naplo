@@ -57,7 +57,7 @@ public class AktualisArakController {
             }
 
             // Devizapár összeállítása
-            String selectedPair = firstCurrency + "-" + secondCurrency;
+            String selectedPair = firstCurrency + "_" + secondCurrency;
 
             Context ctx = new ContextBuilder(Config.URL)
                     .setToken(Config.TOKEN)
