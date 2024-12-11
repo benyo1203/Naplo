@@ -23,7 +23,7 @@ public class IrController {
     @FXML
     private Label successLabel; // A siker üzenetet megjelenítő Label
 
-    private static final String DB_URL = "jdbc:sqlite:naplo.db";
+    private static final String DB_URL = "jdbc:sqlite:adatok.db";
     private static final String USER = "user";
     private static final String PASSWORD = "";
 
