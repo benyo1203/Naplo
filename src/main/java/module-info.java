@@ -10,21 +10,36 @@ module com.example.naplo {
     requires jakarta.activation;
     requires jakarta.xml.ws;
     requires jakarta.xml.bind;
-    requires com.sun.xml.bind;
+
+
     requires java.desktop;
     requires java.net.http;
     requires org.json;
 
+    requires java.xml;
 
 
-    opens mnb to com.sun.xml.bind;
 
     exports com.example.naplo;
 
-    opens com.example.naplo to javafx.base, javafx.fxml, java.sql;
+    exports com.oanda.v20.primitives;
+    exports com.oanda.v20.transaction;
+
+    exports com.example.naplo.forex;
+    exports com.example.naplo.parhuzamos;
+
+    exports mnb;
+    exports com.example.naplo.SOAP.letoltes;
+    exports com.example.naplo.adatbazis;
 
 
-    // Forexhez szükséges nyitások
+
+    opens com.example.naplo.SOAP.letoltes to javafx.fxml, jakarta.xml.bind, com.sun.xml.ws;
+
+    opens mnb to com.sun.xml.bind, com.sun.tools.ws, com.sun.xml.ws, org.glassfish.jaxb.runtime;
+
+    opens com.example.naplo to javafx.base, javafx.fxml, java.sql, com.sun.xml.ws;
+
     opens com.oanda.v20 to jakarta.xml.bind, com.google.gson;
     opens com.oanda.v20.account to jakarta.xml.bind, com.google.gson;
     opens com.oanda.v20.pricing to jakarta.xml.bind, com.google.gson;
@@ -34,21 +49,8 @@ module com.example.naplo {
     opens com.oanda.v20.transaction to jakarta.xml.bind, com.google.gson;
     opens com.oanda.v20.trade to jakarta.xml.bind, com.google.gson;
 
-    exports com.oanda.v20.primitives;
-    exports com.oanda.v20.transaction;
-
-    // Exportáljuk a SOAP csomagot
-    exports com.example.naplo.forex;
-    exports com.example.naplo.parhuzamos;
-
     opens com.example.naplo.forex to javafx.fxml, jakarta.xml.bind;
     opens com.example.naplo.parhuzamos to javafx.fxml, jakarta.xml.bind;
 
-    // Nyisd meg a com.example.naplo.SOAP.letoltes csomagot a javafx.fxml modul számára
-    opens com.example.naplo.SOAP.letoltes to javafx.fxml;
-
-    exports mnb;
-    exports com.example.naplo.SOAP.letoltes;
-    exports com.example.naplo.adatbazis;
     opens com.example.naplo.adatbazis to jakarta.xml.bind, java.sql, javafx.base, javafx.fxml;
 }
