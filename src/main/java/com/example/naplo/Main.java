@@ -2,21 +2,27 @@ package com.example.naplo;
 
 import com.example.naplo.SOAP.letoltes.SOAPletoltes;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import javafx.stage.Stage;
-import mnb.MNBArfolyamServiceSoap;
-import mnb.MNBArfolyamServiceSoapImpl;
 
-
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.List;
 
 
 public class Main extends Application {
@@ -31,8 +37,17 @@ public class Main extends Application {
         MenuItem olvas = new MenuItem("Olvas");
         dbMenu.getItems().add(olvas);
 
-        MenuItem olvas1 = new MenuItem("Olvas1");
-        dbMenu.getItems().add(olvas1);
+        MenuItem olvas2 = new MenuItem("Olvas2");
+        dbMenu.getItems().add(olvas2);
+
+        MenuItem ir = new MenuItem("Ír");
+        dbMenu.getItems().add(ir);
+
+        MenuItem modosit = new MenuItem("Módosít");
+        dbMenu.getItems().add(modosit);
+
+        MenuItem torol = new MenuItem("Töröl");
+        dbMenu.getItems().add(torol);
 
         // Forexes feladat
         Menu forexMenu = new Menu("Forex");
@@ -56,19 +71,11 @@ public class Main extends Application {
         menuBar.getMenus().add(dbMenu);
         menuBar.getMenus().add(forexMenu);
 
-        // Betöltjük az FXML fájlt, amely tartalmazza a Számlainformációk UI-t
-        VBox root1 = null;
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/naplo/forex/szamlainformaciok.fxml"));
-            root1 = loader.load(); // Az FXML-ben meghatározott UI-t betölti
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
 
         // A menüsor elhelyezése a fő elrendezés tetején
         root.setTop(menuBar);
-        // Az FXML által létrehozott UI hozzáadása a középső részhez
-        root.setCenter(root1);
+
 
         // A fő ablak beállítása
         Scene scene = new Scene(root, 800, 600);
@@ -76,6 +83,71 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        olvas.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/naplo/adatbazis/olvas.fxml"));
+                VBox olvasView = loader.load();
+                root.setCenter(olvasView); // Az "Olvas" FXML betöltése a főablak közepére
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        olvas2.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/naplo/adatbazis/olvas2.fxml"));
+                BorderPane olvas2View = loader.load();  // BorderPane típusú
+                root.setCenter(olvas2View);  // Mivel root is BorderPane, így ez működni fog
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        ir.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/naplo/adatbazis/ir.fxml"));
+                GridPane irView = loader.load();
+                root.setCenter(irView);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        modosit.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/naplo/adatbazis/modosit.fxml"));
+                GridPane modositView = loader.load();
+                root.setCenter(modositView); // Az "Olvas" FXML betöltése a főablak közepére
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+        torol.setOnAction(event -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/naplo/adatbazis/torol.fxml"));
+                VBox torolView = loader.load();
+                root.setCenter(torolView); // Az "Olvas" FXML betöltése a főablak közepére
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+
+
+
+
+
+        szamlainfo.setOnAction(event -> {
+            VBox forexView = null;
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/naplo/forex/szamlainformaciok" +
+                        ".fxml"));
+                forexView = loader.load(); // Betöltjük az aktuális árak FXML fájlt
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            root.setCenter(forexView); // Az új UI betöltése a középső részhez
+        });
         // Eseménykezelő: Aktuális árak
         aktualisArak.setOnAction(event -> {
             VBox forexView = null;
@@ -163,7 +235,7 @@ public class Main extends Application {
         letoltes.setOnAction(event -> {
             new Thread(() -> {
                 try {
-                    String fajlNev = "mnb_arfolyamok.txt"; // A fájl neve
+                    String fajlNev = "MNB.txt"; // A fájl neve
                     SOAPletoltes.mnbArfolyamokLetolt(fajlNev);
                     System.out.println("Az árfolyamok sikeresen letöltve: " + fajlNev);
                 } catch (Exception e) {
@@ -196,20 +268,12 @@ public class Main extends Application {
             }
             root.setCenter(grafikonView); // Az új UI betöltése a középső részhez
         });
-
-
-
-
-
-
-
     }
+
+
 
 
     public static void main(String[] args) {
         launch(args);
-
-
-
     }
 }

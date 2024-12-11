@@ -1,18 +1,14 @@
-package com.example.naplo.forex;
+package com.example.naplo.adatbazis;
 
-
-import com.example.naplo.Diak;
-import com.example.naplo.Jegy;
-import com.example.naplo.Targy;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdatbazisBetoltes {
-    private static final String DB_URL = "jdbc:sqlite:your_database.db";
+    private static final String DB_URL = "jdbc:sqlite:naplo.db";
     private static final String USER = "user";
-    private static final String PASSWORD = "password";
+    private static final String PASSWORD = "";
 
     public List<Diak> loadDiakData() {
         List<Diak> diakList = new ArrayList<>();

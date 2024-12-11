@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.Pos?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane fx:controller="com.example.naplo.adatbazis.ModositController" xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" hgap="10" vgap="10">
+    <!-- Rekord kiválasztása (azonosító) -->
+    <Label text="Válassza ki az azonosítót:"/>
+    <ComboBox fx:id="idComboBox" GridPane.columnIndex="1" />
+
+    <!-- Név módosítása -->
+    <Label text="Új név:" GridPane.rowIndex="1"/>
+    <TextField fx:id="nevTextField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+
+    <!-- Osztály módosítása -->
+    <Label text="Új osztály:" GridPane.rowIndex="2"/>
+    <TextField fx:id="osztalyTextField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+
+    <!-- Módosítás gomb -->
+    <Button text="Módosítás" onAction="#handleUpdateRecord" GridPane.rowIndex="3" GridPane.columnSpan="2" alignment="CENTER"/>
+
+    <!-- Visszajelzés a módosításról -->
+    <Label fx:id="successLabel" text="" GridPane.rowIndex="4" GridPane.columnSpan="2" alignment="CENTER"/>
+</GridPane>
