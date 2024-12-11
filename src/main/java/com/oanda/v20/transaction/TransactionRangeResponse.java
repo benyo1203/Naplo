@@ -3,8 +3,7 @@ package com.oanda.v20.transaction;
 import java.util.ArrayList;
 import java.util.List;
 
-
-import com.google.gson.annotations.SerializedName;;
+import com.google.gson.annotations.SerializedName;
 
 /**
  * TransactionRangeResponse

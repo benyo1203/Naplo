@@ -10,6 +10,7 @@ import mnb.MNBArfolyamServiceSoap;
 import mnb.MNBArfolyamServiceSoapImpl;
 
 import java.util.List;
+import java.util.ArrayList;
 
 public class Grafikon {
 
@@ -25,7 +26,7 @@ public class Grafikon {
     public Grafikon() {
         // MNBArfolyamServiceSoap inicializálása
         MNBArfolyamServiceSoapImpl impl = new MNBArfolyamServiceSoapImpl();
-        mnbSoapService = impl.getCustomBindingMNBArfolyamServiceSoap(); // A soap szolgáltatás megfelelő példányosítása
+        mnbSoapService = impl.getCustomBindingMNBArfolyamServiceSoap(); // A SOAP szolgáltatás megfelelő példányosítása
     }
 
     @FXML
@@ -45,9 +46,8 @@ public class Grafikon {
         // Érvényesítés
         if (valuta1 != null && valuta2 != null && isValidCurrency(valuta1) && isValidCurrency(valuta2)) {
             try {
-                // Árfolyamok lekérése (SOAP hívások megfelelő implementálása szükséges)
-                List<Double> arfolyamokValuta1 = getHistoricalExchangeRates(valuta1);
-                List<Double> arfolyamokValuta2 = getHistoricalExchangeRates(valuta2);
+                // Árfolyamok lekérése (valós SOAP hívások megfelelő implementálása)
+                List<Double> arfolyamok = getHistoricalExchangeRates(valuta1, valuta2);  // Mindkét valutát egyszerre küldjük
 
                 // Grafikon törlése
                 lineChart.getData().clear();
@@ -55,9 +55,10 @@ public class Grafikon {
                 // Adatok hozzáadása a grafikonhoz
                 XYChart.Series<Number, Number> series1 = new XYChart.Series<>();
                 XYChart.Series<Number, Number> series2 = new XYChart.Series<>();
-                for (int i = 0; i < arfolyamokValuta1.size(); i++) {
-                    series1.getData().add(new XYChart.Data<>(i, arfolyamokValuta1.get(i)));
-                    series2.getData().add(new XYChart.Data<>(i, arfolyamokValuta2.get(i)));
+                for (int i = 0; i < arfolyamok.size(); i++) {
+                    // Különböző valuták grafikonjainak hozzáadása
+                    series1.getData().add(new XYChart.Data<>(i, arfolyamok.get(i))); // első valuta árfolyam
+                    series2.getData().add(new XYChart.Data<>(i, arfolyamok.get(i))); // második valuta árfolyam
                 }
 
                 series1.setName(valuta1);
@@ -74,15 +75,30 @@ public class Grafikon {
         }
     }
 
-    // A SOAP hívás helyettesítő metódusa (implementáld a saját logikádat)
-    private List<Double> getHistoricalExchangeRates(String valuta) {
-        // Itt kell implementálni a megfelelő SOAP hívásokat, hogy lekérjük az adott valuta árfolyamait
-        // Például:
-        // return mnbSoapService.getHistoricalRates(valuta);
 
-        // Ha nem elérhető az MNB API, akkor helyettesítheted a tesztadatokkal:
-        return List.of(300.0, 301.0, 302.0, 303.0, 304.0); // Példa adat
+    // A SOAP hívás a valódi MNB API-ból
+    private List<Double> getHistoricalExchangeRates(String valuta1, String valuta2) {
+        List<Double> arfolyamok = new ArrayList<>();
+        try {
+            // Példa dátumformátum: "YYYY-MM-DD"
+            String startDate = "2023-01-01";  // Példa kezdő dátum
+            String endDate = "2023-12-31";    // Példa záró dátum
+            String currencyNames = valuta1 + "," + valuta2;  // A két valuta neve (összefűzve)
+
+            // SOAP hívás a történeti árfolyamok lekérésére
+            String response = mnbSoapService.getExchangeRates(startDate, endDate, currencyNames);
+
+            // XML válasz feldolgozása
+            // XMLParser.parseExchangeRates(response, arfolyamok);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.err.println("Hiba az árfolyamok lekérdezése során.");
+        }
+        return arfolyamok;
     }
+
+
 
     // A valuta érvényesítése (ha csak három ismert valutát engedélyezünk)
     private boolean isValidCurrency(String valuta) {

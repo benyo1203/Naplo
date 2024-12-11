@@ -9,7 +9,16 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.HashMap;
 
-
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.MethodNotSupportedException;
+import org.apache.http.ParseException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.*;
+import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ByteArrayEntity;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -29,17 +38,6 @@ import com.oanda.v20.order.Order;
 import com.oanda.v20.order.OrderAdapter;
 import com.oanda.v20.primitives.NullableTypeAdapterFactory;
 import com.oanda.v20.primitives.AcceptDatetimeFormat;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.MethodNotSupportedException;
-import org.apache.http.ParseException;
-
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.*;
-import org.apache.http.client.utils.URIBuilder;
-import org.apache.http.entity.ByteArrayEntity;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.util.EntityUtils;
 
 public class Context {
     public InstrumentContext instrument;

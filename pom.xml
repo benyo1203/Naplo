@@ -68,28 +68,23 @@
             <version>2.1.1</version>
         </dependency>
 
-        <!-- JAXB Runtime (Jakarta) -->
         <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
-            <version>4.0.3</version>
+            <groupId>jakarta.xml.ws</groupId>
+            <artifactId>jakarta.xml.ws-api</artifactId>
+            <version>4.0.1</version>
         </dependency>
 
         <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>jaxws-maven-plugin</artifactId>
-            <version>4.0.3</version>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>4.0.1</version>
         </dependency>
+
+
         <dependency>
-        <groupId>org.glassfish.metro</groupId>
-        <artifactId>webservices-rt</artifactId>
-        <version>4.0.3</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.glassfish.metro</groupId>
-                    <artifactId>webservices-api</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>wscompile</artifactId>
+            <version>4.0.3</version>
         </dependency>
 
         <dependency>
@@ -103,6 +98,18 @@
             <artifactId>sqlite-jdbc</artifactId>
             <version>3.44.1.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.oanda.v20</groupId>
+            <artifactId>v20</artifactId>
+            <version>3.0.25</version>
+        </dependency>
+
+
+
+
+
+
 
     </dependencies>
     <build>
@@ -136,6 +143,48 @@
                     <source>17</source>
                     <target>17</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.5.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>
