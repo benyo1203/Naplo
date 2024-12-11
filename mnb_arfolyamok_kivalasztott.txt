@@ -1,0 +1,3 @@
+Árfolyamok (2024-12-03 - 2024-12-06):
+<MNBExchangeRates><Day date="2024-12-06"><Rate unit="1" curr="EUR">413,46</Rate></Day><Day date="2024-12-05"><Rate unit="1" curr="EUR">412,7</Rate></Day><Day date="2024-12-04"><Rate unit="1" curr="EUR">414,06000</Rate></Day><Day date="2024-12-03"><Rate unit="1" curr="EUR">414,44</Rate></Day></MNBExchangeRates>
+

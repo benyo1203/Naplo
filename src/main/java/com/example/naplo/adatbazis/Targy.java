@@ -1,4 +1,4 @@
-package com.example.naplo;
+package com.example.naplo.adatbazis;
 
 public class Targy {
     private int id;

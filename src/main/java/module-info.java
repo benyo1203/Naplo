@@ -15,9 +15,14 @@ module com.example.naplo {
     requires java.net.http;
     requires org.json;
 
+
+
     opens mnb to com.sun.xml.bind;
 
     exports com.example.naplo;
+
+    opens com.example.naplo to javafx.base, javafx.fxml, java.sql;
+
 
     // Forexhez szükséges nyitások
     opens com.oanda.v20 to jakarta.xml.bind, com.google.gson;
@@ -44,4 +49,6 @@ module com.example.naplo {
 
     exports mnb;
     exports com.example.naplo.SOAP.letoltes;
+    exports com.example.naplo.adatbazis;
+    opens com.example.naplo.adatbazis to jakarta.xml.bind, java.sql, javafx.base, javafx.fxml;
 }

@@ -1,6 +1,4 @@
-package com.example.naplo;
-
-import com.example.naplo.forex.AdatbazisBetoltes;
+package com.example.naplo.adatbazis;
 
 import java.util.List;
 
