@@ -23,7 +23,7 @@ public class TorolController {
     private ObservableList<String> recordIds = FXCollections.observableArrayList();
 
     // Az adatbázis URL-je és egyéb beállítások
-    private static final String DB_URL = "jdbc:sqlite:naplo.db";
+    private static final String DB_URL = "jdbc:sqlite:adatok.db";
     private static final String USER = "user";
     private static final String PASSWORD = "";
 

@@ -25,7 +25,7 @@ public class ModositController {
     @FXML
     private Label successLabel;
 
-    private static final String DB_URL = "jdbc:sqlite:naplo.db";
+    private static final String DB_URL = "jdbc:sqlite:adatok.db";
     private static final String USER = "user";
     private static final String PASSWORD = "";
 

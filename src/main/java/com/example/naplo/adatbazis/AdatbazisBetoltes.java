@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdatbazisBetoltes {
-    private static final String DB_URL = "jdbc:sqlite:naplo.db";
+    private static final String DB_URL = "jdbc:sqlite:adatok.db";
     private static final String USER = "user";
     private static final String PASSWORD = "";
 
